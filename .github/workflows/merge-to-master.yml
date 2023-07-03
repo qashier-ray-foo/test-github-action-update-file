@@ -19,9 +19,18 @@ jobs:
 
             - name: Clear deploy file
               run: echo -n "" > deploy.txt
-              
-            - uses: EndBug/add-and-commit@v9
+
+            - name: Create Pull Request
+              id: cpr
+              uses: peter-evans/create-pull-request@v5
               with:
-                add: "."
-                message: 'Deployed Production'
-                default_author: github_actions
+                commit-message: |
+                  Deployed Production
+
+
+                  skip-checks: true
+                branch: clear-deploy-file
+                title: 'Clear deploy.txt'
+                body: |
+                  Deployed Production
+                base: staging
