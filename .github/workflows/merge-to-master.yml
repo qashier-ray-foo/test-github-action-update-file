@@ -10,5 +10,15 @@ jobs:
     clear-deploy-file:
         runs-on: ubuntu-latest
         steps:
+            - name: Checkout
+              uses: actions/checkout@v3
+              with:
+                ref: "staging"
+
             - name: Clear deploy file
               run: echo -n "" > deploy.txt
+              
+            - uses: EndBug/add-and-commit@v9
+              with:
+                add: "."
+                message: 'Deployed Production'
