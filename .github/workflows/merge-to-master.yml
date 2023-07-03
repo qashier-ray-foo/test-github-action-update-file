@@ -1,0 +1,14 @@
+name: Test
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+
+jobs:
+    clear-deploy-file:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Clear deploy file
+              run: echo -n "" > deploy.txt
