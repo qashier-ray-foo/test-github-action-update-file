@@ -23,11 +23,10 @@ jobs:
               env:
                 GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               run: |
-                gh api \
+                gh api repos/qashier-ray-foo/test-github-action-update-file/branches/staging/protection/required_pull_request_reviews \
                 -X POST \
                 -H "Accept: application/vnd.github+json" \
                 -H "X-GitHub-Api-Version: 2022-11-28" \
-                repos/qashier-ray-foo/test-github-action-update-file/branches/staging/protection/required_pull_request_reviews \
                 -f require_code_owner_reviews=false \
                 -f required_approving_review_count=0
 
@@ -55,10 +54,9 @@ jobs:
               env:
                 GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               run: |
-                gh api \
+                gh api repos/qashier-ray-foo/test-github-action-update-file/branches/staging/protection/required_pull_request_reviews \
                 -X POST \
                 -H "Accept: application/vnd.github+json" \
                 -H "X-GitHub-Api-Version: 2022-11-28" \
-                repos/qashier-ray-foo/test-github-action-update-file/branches/staging/protection/required_pull_request_reviews \
                 -f require_code_owner_reviews=true \
                 -f required_approving_review_count=1
