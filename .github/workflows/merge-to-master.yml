@@ -19,6 +19,18 @@ jobs:
             - name: Clear deploy file
               run: echo -n "" > deploy.txt
 
+            - name: Disable PR review
+              env:
+                GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              run: |
+                gh api \
+                --method POST \
+                  -H "Accept: application/vnd.github+json" \
+                  -H "X-GitHub-Api-Version: 2022-11-28" \
+                  /repos/qashier-ray-foo/test-github-action-update-file/branches/staging/protection/required_pull_request_reviews \
+                  -f require_code_owner_reviews=false \
+                  -f required_approving_review_count=0
+
             - name: Create Pull Request
               id: cpr
               uses: peter-evans/create-pull-request@v5
@@ -34,22 +46,14 @@ jobs:
                   Deployed Production
                 base: staging
 
-            - name: Disable PR review
-              run: |
-                gh api \
-                --method POST \
-                  -H "Accept: application/vnd.github+json" \
-                  -H "X-GitHub-Api-Version: 2022-11-28" \
-                  /repos/qashier-ray-foo/test-github-action-update-file/branches/staging/protection/required_pull_request_reviews \
-                  -f require_code_owner_reviews=false \
-                  -f required_approving_review_count=0
-
             - name: Merge PR
               env:
                 GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               run: gh pr merge ${{steps.cpr.outputs.pull-request-number}} --merge --admin
 
             - name: Re-enable PR review
+              env:
+                GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               run: |
                 gh api \
                 --method POST \
