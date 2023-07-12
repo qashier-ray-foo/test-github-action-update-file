@@ -23,10 +23,14 @@ jobs:
 
             - name: debug 2
               if: ${{ steps.set.outputs.targets == '' }}
-              run: |
-                echo "empty string"
+              run: exit 1
+                
 
             - name: debug 3
               if: ${{ steps.set.outputs.targets == '0' }}
               run: |
                 echo "empty string with 0 string"
+
+            - name: final
+              run: |
+                echo "final step"
