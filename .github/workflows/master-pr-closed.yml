@@ -23,8 +23,7 @@ jobs:
 
             - name: debug 2
               if: ${{ steps.set.outputs.targets == '' }}
-              run: exit 1
-                
+              run: exit 0
 
             - name: debug 3
               if: ${{ steps.set.outputs.targets == '0' }}
