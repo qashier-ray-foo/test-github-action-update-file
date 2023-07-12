@@ -1,0 +1,21 @@
+name: Test2
+
+on:
+    pull_request:
+        branches:
+            - staging
+        types:
+            - opened
+
+jobs:
+    test:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Set empty string
+              id: set
+              run: |
+                echo "##[set-output name=targets;]$(echo '')"
+
+            - name: debug
+              run: |
+                echo ${{ steps.set.outputs.targets }}
