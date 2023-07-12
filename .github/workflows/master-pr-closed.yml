@@ -34,3 +34,11 @@ jobs:
             - name: final
               run: |
                 echo "final step"
+
+    sequel:
+        runs-on: ubuntu-latest
+        needs: test
+        steps:
+            - name: debug
+              run: |
+                echo "sequel"
