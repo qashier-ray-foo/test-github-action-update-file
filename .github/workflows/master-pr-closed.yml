@@ -9,24 +9,31 @@ on:
             - synchronize
 
 jobs:
-    test:
+    momo:
         runs-on: ubuntu-latest
+        outputs:
+            targets: ${{ steps.set.outputs.targets }}
         steps:
             - name: Set empty string
               id: set
               run: |
                 echo "##[set-output name=targets;]$(echo '')"
 
+    test:
+        runs-on: ubuntu-latest
+        needs: momo
+        if: ${{ needs.momo.outputs.targets == '' }}
+        steps:
             - name: debug
               run: |
-                echo ${{ steps.set.outputs.targets }}
+                echo ${{ needs.momo.outputs.targets }}
 
             - name: debug 2
-              if: ${{ steps.set.outputs.targets == '' }}
+              if: ${{ needs.momo.outputs.targets == '' }}
               run: exit 0
 
             - name: debug 3
-              if: ${{ steps.set.outputs.targets == '0' }}
+              if: ${{ needs.momo.outputs.targets == '0' }}
               run: |
                 echo "empty string with 0 string"
 
