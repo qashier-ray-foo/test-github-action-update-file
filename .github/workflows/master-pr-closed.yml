@@ -24,6 +24,7 @@ jobs:
     test:
         runs-on: ubuntu-latest
         needs: momo
+        if: ${{ needs.momo.outputs.targets != '' }}
         steps:
             - name: debug
               run: |
