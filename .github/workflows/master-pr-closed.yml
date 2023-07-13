@@ -16,8 +16,10 @@ jobs:
         steps:
             - name: Set empty string
               id: set
+              shell: bash
               run: |
-                echo "targets=''" >> $GITHUB_OUTPUT
+                targets=""
+                echo targets >> $GITHUB_OUTPUT
 
     test:
         runs-on: ubuntu-latest
