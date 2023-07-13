@@ -17,7 +17,7 @@ jobs:
             - name: Set empty string
               id: set
               run: |
-                echo "##[set-output name=targets;]$(echo '')" >> $GITHUB_OUTPUT
+                echo "targets=''" >> $GITHUB_OUTPUT
 
     test:
         runs-on: ubuntu-latest
