@@ -1,0 +1,52 @@
+name: Test2
+
+on:
+    pull_request:
+        branches:
+            - staging
+        types:
+            - opened
+            - synchronize
+
+jobs:
+    momo:
+        runs-on: ubuntu-latest
+        outputs:
+            targets: ${{ steps.set.outputs.targets }}
+        steps:
+            - name: Set empty string
+              id: set
+              shell: bash
+              run: |
+                targets="test"
+                echo "targets=${targets}" >> $GITHUB_OUTPUT
+
+    test:
+        runs-on: ubuntu-latest
+        needs: momo
+        if: ${{ needs.momo.outputs.targets != '' }}
+        steps:
+            - name: debug
+              run: |
+                echo ${{ needs.momo.outputs.targets }}
+
+            - name: debug 2
+              if: ${{ needs.momo.outputs.targets == '' }}
+              run: exit 0
+
+            - name: debug 3
+              if: ${{ needs.momo.outputs.targets == '0' }}
+              run: |
+                echo "empty string with 0 string"
+
+            - name: final
+              run: |
+                echo "final step"
+
+    sequel:
+        runs-on: ubuntu-latest
+        needs: test
+        steps:
+            - name: debug
+              run: |
+                echo "sequel"
