@@ -19,7 +19,7 @@ jobs:
               shell: bash
               run: |
                 targets=""
-                echo targets >> $GITHUB_OUTPUT
+                echo "targets" >> $GITHUB_OUTPUT
 
     test:
         runs-on: ubuntu-latest
